@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Aquarius-inspired developer portfolio — Christian C. Garilva"
+    />
+    <title>Christian C. Garilva — Aquarius Portfolio</title>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <div class="nebula" aria-hidden="true"></div>
+    <div class="birthchart" aria-hidden="true"></div>
+
+    <!-- NAV -->
+    <header class="nav">
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="sigil" title="Aquarius">
+            <span>♒</span>
+          </div>
+          <div>
+            <strong>Christian C. Garilva</strong>
+            <small
+              >Aquarius-coded Builder • Systems + Analytics • Research
+              Platforms</small
+            >
+          </div>
+        </div>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#projects">Projects</a>
+          <a href="#deck">Deck</a>
+          <a href="#skills">Skills</a>
+          <a href="#journey">Journey</a>
+          <a href="#leadership">Leadership</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <a class="btn primary" href="#contact">Send a Signal</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="hero-grid">
+          <div class="card">
+            <h1 class="h1">
+              Building systems like constellations —
+              <span class="glow">connected, clean, and future-ready</span>.
+            </h1>
+
+            <p class="subtitle">
+              I’m <strong>Christian C. Garilva</strong>, a BSIT student
+              (Business Analytics major) who blends development + data thinking
+              to build practical platforms — with an Aquarius mindset: curious,
+              systems-driven, and always improving.
+            </p>
+
+            <div class="waves" aria-hidden="true">
+              <div class="wave"></div>
+              <div class="wave"></div>
+              <div class="wave"></div>
+            </div>
+
+            <div class="chips" aria-label="Highlights">
+              <span class="chip aqua">Aquarius ♒</span>
+              <span class="chip">Element: Air</span>
+              <span class="chip">Keyword: Innovation</span>
+              <span class="chip">Keyword: Visionary</span>
+              <span class="chip">Keyword: Systems</span>
+              <span class="chip">Keyword: Community</span>
+              <span class="chip">SQL</span>
+              <span class="chip">Python</span>
+              <span class="chip">Tableau</span>
+              <span class="chip">Excel</span>
+              <span class="chip">Laravel</span>
+              <span class="chip">React / React Native</span>
+            </div>
+
+            <div class="krow">
+              <a class="btn primary" href="#projects">Explore Projects</a>
+              <a class="btn" href="mailto:cgarilva.ph@gmail.com">Email</a>
+              <a class="btn" href="tel:+639051914737">Call</a>
+            </div>
+
+            <div class="sep"></div>
+
+            <div class="krow muted">
+              <span class="mono">📍 Villongco, Muntinlupa</span>
+              <span class="mono">•</span>
+              <span class="mono">📧 cgarilva.ph@gmail.com</span>
+              <span class="mono">•</span>
+              <span class="mono">📱 0905 191 4737</span>
+            </div>
+          </div>
+
+          <aside class="card">
+            <h2 style="margin: 0 0 10px; font-size: 18px">
+              Element: Air (Aquarius)
+            </h2>
+            <p class="lead" style="margin-bottom: 12px">
+              Air energy = ideas into systems. I like turning messy workflows
+              into clean, scalable platforms.
+            </p>
+
+            <div class="constellation" aria-hidden="true" id="miniConst"></div>
+
+            <div class="sep"></div>
+
+            <div class="grid" style="gap: 10px">
+              <div
+                class="card"
+                style="
+                  padding: 12px;
+                  border-radius: 16px;
+                  background: rgba(7, 10, 26, 0.28);
+                  box-shadow: none;
+                "
+              >
+                <div class="muted" style="font-size: 12px">
+                  Aquarius Keywords
+                </div>
+                <div style="font-weight: 900">
+                  Visionary • Innovative • Humanitarian
+                </div>
+                <div class="muted" style="font-size: 13px">
+                  Systems thinker • Curious • Collaborative
+                </div>
+              </div>
+
+              <div
+                class="card"
+                style="
+                  padding: 12px;
+                  border-radius: 16px;
+                  background: rgba(7, 10, 26, 0.28);
+                  box-shadow: none;
+                "
+              >
+                <div class="muted" style="font-size: 12px">Education</div>
+                <div style="font-weight: 900">Batangas State University</div>
+                <div class="muted" style="font-size: 13px">
+                  BS in Information Technology (Business Analytics)
+                </div>
+              </div>
+
+              <div
+                class="card"
+                style="
+                  padding: 12px;
+                  border-radius: 16px;
+                  background: rgba(7, 10, 26, 0.28);
+                  box-shadow: none;
+                "
+              >
+                <div class="muted" style="font-size: 12px">Certification</div>
+                <div style="font-weight: 900">
+                  IT Specialist: Data Analytics
+                </div>
+                <div class="muted" style="font-size: 13px">
+                  Certiport • May 2025
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- PROJECTS (NO JAVA) -->
+      <section class="section" id="projects">
+        <h2>Projects</h2>
+        <p class="lead">
+          My builds — institutional research systems + academic web/mobile
+          systems.
+        </p>
+
+        <div class="grid one">
+          <!-- RESEARCH INVOLVEMENT -->
+          <div class="card">
+            <h3 style="margin: 0 0 6px">Research Involvement</h3>
+            <p class="muted" style="margin: 0 0 10px">
+              Institutional + capstone systems that support academic work at
+              scale.
+            </p>
+
+            <div class="sep"></div>
+
+            <article class="project">
+              <div class="topline">
+                <h3>
+                  Journal Management System (JMS) — Batangas State University
+                </h3>
+                <span class="tag">Developer • 2025–2026</span>
+              </div>
+              <ul>
+                <li>
+                  Engineered a university-wide digital platform to centralize
+                  and manage scholarly journals across multiple colleges.
+                </li>
+                <li>
+                  Designed multi-tenant architecture supporting unique journal
+                  requirements across disciplines.
+                </li>
+                <li>
+                  Implemented secure submission and review workflows for
+                  integrity and accessibility.
+                </li>
+              </ul>
+            </article>
+
+            <div class="sep"></div>
+
+            <article class="project">
+              <div class="topline">
+                <h3>
+                  SCROLL: Intelligent Thesis Repository — Capstone Project
+                </h3>
+                <span class="tag">BA & Jr Dev • Nov 2025</span>
+              </div>
+              <ul>
+                <li>
+                  Built a web-based repository using Laravel and Elasticsearch
+                  to digitize 800+ annual thesis submissions.
+                </li>
+                <li>
+                  Reduced retrieval time using Semantic AI Full-Text Search.
+                </li>
+                <li>
+                  Translated stakeholder requirements into technical features.
+                </li>
+              </ul>
+            </article>
+          </div>
+
+          <!-- ACADEMIC PROJECTS (4) -->
+          <div class="card">
+            <h3 style="margin: 0 0 6px">Academic Projects</h3>
+            <p class="muted" style="margin: 0 0 10px">
+              Web + mobile systems built for real workflows and community
+              use-cases.
+            </p>
+
+            <div class="sep"></div>
+
+            <div class="grid two">
+              <article
+                class="project card"
+                style="box-shadow: none; background: rgba(7, 10, 26, 0.28)"
+              >
+                <div class="topline">
+                  <h3>
+                    MoneyPulse: Online Banking & Financial Tracking System
+                  </h3>
+                  <span class="tag">BA & Mobile Dev • 2025</span>
+                </div>
+                <ul>
+                  <li>
+                    Created a secure banking platform with React.js featuring
+                    automated fund transfers and QR withdrawals.
+                  </li>
+                  <li>
+                    Applied SQA based on ISO/IEC 25010 standards for reliability
+                    and security.
+                  </li>
+                </ul>
+              </article>
+
+              <article
+                class="project card"
+                style="box-shadow: none; background: rgba(7, 10, 26, 0.28)"
+              >
+                <div class="topline">
+                  <h3>
+                    ReserveNAs: Event Reservation & Sports Match-up System
+                  </h3>
+                  <span class="tag">BA & Mobile Dev • 2025</span>
+                </div>
+                <ul>
+                  <li>
+                    Built a cross-platform app to modernize facility
+                    reservations via QR validation.
+                  </li>
+                  <li>
+                    Designed real-time availability tracking + sports match-up
+                    feature.
+                  </li>
+                </ul>
+              </article>
+
+              <article
+                class="project card"
+                style="box-shadow: none; background: rgba(7, 10, 26, 0.28)"
+              >
+                <div class="topline">
+                  <h3>CourtConnect: Pugadlawin Scheduler Hub</h3>
+                  <span class="tag">BA & Jr Dev • 2024</span>
+                </div>
+                <ul>
+                  <li>
+                    Centralized basketball court scheduling to reduce conflicts
+                    and ensure equitable access.
+                  </li>
+                </ul>
+              </article>
+
+              <article
+                class="project card"
+                style="box-shadow: none; background: rgba(7, 10, 26, 0.28)"
+              >
+                <div class="topline">
+                  <h3>Nasugbu Local Market Information System</h3>
+                  <span class="tag">BA & Jr Dev • 2024</span>
+                </div>
+                <ul>
+                  <li>
+                    Built a platform for market stall management with dynamic
+                    pricing updates and rental revenue tracking.
+                  </li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="deck">
+        <h2>Featured Projects</h2>
+        <p class="lead">
+          A quick preview — swipe through my highlighted builds.
+        </p>
+
+        <div class="deck-stage simple">
+          <div class="carousel-wrap simple">
+            <button
+              class="navbtn left"
+              id="btnLeft"
+              type="button"
+              aria-label="Previous"
+            >
+              <span>‹</span>
+            </button>
+
+            <div
+              class="carousel-viewport simple"
+              id="deckViewport"
+              aria-label="Project carousel viewport"
+            >
+              <div
+                class="carousel-rail simple"
+                id="deckRail"
+                aria-label="Project carousel"
+              ></div>
+            </div>
+
+            <button
+              class="navbtn right"
+              id="btnRight"
+              type="button"
+              aria-label="Next"
+            >
+              <span>›</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section class="section" id="skills">
+        <h2>Skills</h2>
+        <p class="lead">
+          Tools I use to turn chaos into clarity (very Aquarius).
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <h3 style="margin: 0 0 10px; font-size: 16px">Data Analytics</h3>
+            <ul>
+              <li>SQL • Python • Tableau • Microsoft Excel</li>
+              <li>Data cleaning, transformation, and insight extraction</li>
+              <li>Visualization & communication for stakeholders</li>
+              <li>Ethical data practices & integrity</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin: 0 0 10px; font-size: 16px">Development</h3>
+            <ul>
+              <li>
+                Laravel (PHP) • Elasticsearch • React / React Native • MySQL
+              </li>
+              <li>DBMS • data modeling • solution-oriented system thinking</li>
+              <li>
+                Collaboration, requirements translation, and shipping features
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- JOURNEY -->
+      <section class="section" id="journey">
+        <h2>Journey</h2>
+        <p class="lead">
+          Academic + professional signals (your “constellation map” of
+          progress).
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <h3 style="margin: 0 0 10px; font-size: 16px">Education</h3>
+            <p style="margin: 0; color: var(--muted)">
+              <strong style="color: var(--text)"
+                >Batangas State University — The National Engineering
+                University</strong
+              ><br />
+              ARASOF-Campus, Nasugbu, Batangas<br />
+              BS Information Technology (Major in Business Analytics) • Expected
+              May 2026
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 style="margin: 0 0 10px; font-size: 16px">Certification</h3>
+            <p style="margin: 0; color: var(--muted)">
+              <strong style="color: var(--text)"
+                >Information Technology Specialist: Data Analytics</strong
+              ><br />
+              Certiport • May 2025
+            </p>
+            <div class="sep"></div>
+            <ul>
+              <li>
+                Validated skills across data lifecycle: prep → analyze →
+                visualize
+              </li>
+              <li>Communicating insights clearly to non-technical audiences</li>
+              <li>Responsible analytics and integrity standards</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- LEADERSHIP -->
+      <section class="section" id="leadership">
+        <h2>Leadership</h2>
+        <p class="lead">
+          Aquarius energy is community energy — systems that help people work
+          better together.
+        </p>
+
+        <div class="card">
+          <h3 style="margin: 0 0 10px; font-size: 16px">
+            CICS Student Council — College Auditor
+          </h3>
+          <ul>
+            <li>
+              Maintained 100% accuracy in financial tracking for student
+              organization funds.
+            </li>
+            <li>
+              Audited event budgets and coordinated with faculty for fiscal
+              responsibility.
+            </li>
+            <li>
+              Resolved 2024–2025 budget discrepancies using detailed financial
+              analysis.
+            </li>
+            <li>
+              Represented student interests in administrative and fiscal
+              meetings.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section" id="contact">
+        <h2>Contact</h2>
+        <p class="lead">Want to collaborate? Send a signal — I’ll respond.</p>
+
+        <div class="two-col">
+          <div class="card">
+            <h3 style="margin: 0 0 10px; font-size: 16px">Direct</h3>
+            <div class="krow">
+              <a class="btn primary" href="mailto:cgarilva.ph@gmail.com"
+                >cgarilva.ph@gmail.com</a
+              >
+              <a class="btn" href="tel:+639051914737">0905 191 4737</a>
+            </div>
+
+            <div class="sep"></div>
+
+            <p class="muted" style="margin: 0 0 10px">Add your links here:</p>
+            <div class="krow">
+              <a class="btn" href="#" title="Add your GitHub link">GitHub</a>
+              <a class="btn" href="#" title="Add your LinkedIn link"
+                >LinkedIn</a
+              >
+              <a class="btn" href="#" title="Add your Resume PDF link"
+                >Resume</a
+              >
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="margin: 0 0 10px; font-size: 16px">Message Template</h3>
+            <p class="muted" style="margin: 0 0 12px; font-size: 14px">
+              Copy/paste when reaching out:
+            </p>
+
+            <pre
+              class="mono"
+              style="
+                margin: 0;
+                padding: 12px;
+                border-radius: 16px;
+                border: 1px solid rgba(148, 163, 184, 0.16);
+                background: rgba(7, 10, 26, 0.3);
+                color: var(--text);
+                overflow: auto;
+                white-space: pre-wrap;
+              "
+            >
+Hi Christian,
+
+I saw your Aquarius portfolio and I’d like to collaborate on:
+- Project:
+- Timeline:
+- Tools/Stack:
+- Goal:
+
+Are you available for a quick chat?</pre
+            >
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        © <span id="y"></span> Christian C. Garilva • Aquarius ♒ Universe
+        Portfolio • Built with HTML/CSS/JS
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
