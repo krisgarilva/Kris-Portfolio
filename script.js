@@ -1,5 +1,6 @@
 // year
-document.getElementById("y").textContent = new Date().getFullYear();
+const yearEl = document.getElementById("y");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // --- Starfield ---
 const canvas = document.getElementById("stars");
@@ -69,269 +70,278 @@ function drawStars() {
 }
 drawStars();
 
-// --- Mini constellation ---
-const box = document.getElementById("miniConst");
-const points = [
-  { x: 12, y: 30 },
-  { x: 28, y: 18 },
-  { x: 42, y: 28 },
-  { x: 58, y: 20 },
-  { x: 72, y: 34 },
-  { x: 86, y: 26 },
-  { x: 24, y: 56 },
-  { x: 38, y: 48 },
-  { x: 54, y: 60 },
-  { x: 70, y: 52 },
-  { x: 82, y: 64 },
-];
-const edges = [
-  [0, 1],
-  [1, 2],
-  [2, 3],
-  [3, 4],
-  [4, 5],
-  [1, 6],
-  [6, 7],
-  [7, 2],
-  [2, 8],
-  [8, 9],
-  [9, 4],
-  [9, 10],
-];
+/* =========================
+   KG SCROLL SIGNATURE
+========================= */
+(function initKGSignature() {
+  const section = document.getElementById("kgScroll");
+  const initials = document.getElementById("kgInitials");
+  const name = document.getElementById("kgName");
+  if (!section || !initials || !name) return;
 
-function buildConstellation() {
-  box.querySelectorAll(".node,.line").forEach((n) => n.remove());
+  const ring = section.querySelector(".kg-ring");
+  let ticking = false;
 
-  for (const [a, b] of edges) {
-    const p1 = points[a],
-      p2 = points[b];
-    const dx = p2.x - p1.x,
-      dy = p2.y - p1.y;
-    const len = Math.hypot(dx, dy);
-    const ang = (Math.atan2(dy, dx) * 180) / Math.PI;
-
-    const line = document.createElement("div");
-    line.className = "line";
-    line.style.left = p1.x + "%";
-    line.style.top = p1.y + "%";
-    line.style.width = len + "%";
-    line.style.transform = `rotate(${ang}deg)`;
-    box.appendChild(line);
+  function clamp(v, min, max) {
+    return Math.max(min, Math.min(max, v));
   }
 
-  for (const p of points) {
-    const n = document.createElement("div");
-    n.className = "node";
-    n.style.left = `calc(${p.x}% - 4px)`;
-    n.style.top = `calc(${p.y}% - 4px)`;
-    box.appendChild(n);
+  function render() {
+    const rect = section.getBoundingClientRect();
+    const travel = Math.max(
+      1,
+      section.offsetHeight - window.innerHeight * 0.42,
+    );
+    const progress = clamp(-rect.top / travel, 0, 1);
+    const arc = progress <= 0.5 ? progress / 0.5 : (1 - progress) / 0.5;
+    const midpoint = 1 - clamp(Math.abs(progress - 0.5) / 0.16, 0, 1);
+
+    const flip = progress * 360;
+    const lift = -arc * 26;
+    const scale = 0.38 + arc * 0.98;
+    const ringScale = scale;
+
+    initials.style.transform = `translate3d(0, ${lift}px, 0) rotateY(${flip}deg) scale(${scale})`;
+    initials.style.opacity = String(1 - midpoint * 0.92);
+
+    const nameScale = 0.9 + midpoint * 0.14;
+    name.style.opacity = String(midpoint);
+    name.style.transform = `translate3d(-50%, calc(-50% + ${lift * 0.35}px), 0) scale(${nameScale})`;
+
+    if (ring) {
+      ring.style.transform = `scale(${ringScale})`;
+      ring.style.opacity = String(0.5 + arc * 0.5);
+    }
+
+    ticking = false;
   }
-}
-buildConstellation();
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(render);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
+})();
 
 /* =========================
-   SLIDESHOW (6 LANDSCAPE CARDS, RIGHT→LEFT)
-   - no back cover / no flip
-   - transform-based slider (smooth, consistent on all browsers)
+   PROJECT MAP
 ========================= */
-(function initDeck() {
-  const rail = document.getElementById("deckRail");
-  if (!rail) return;
+(function initProjectMap() {
+  const map = document.getElementById("projectMap");
+  if (!map) return;
 
-  const btnLeft = document.getElementById("btnLeft");
-  const btnRight = document.getElementById("btnRight");
-
-  const viewport = document.getElementById("deckViewport");
-
-  let autoplay = true;
-  let timer = null;
-  viewport?.addEventListener("mouseenter", () => stopAutoplay());
-  viewport?.addEventListener("mouseleave", () => startAutoplay());
-
-  // pause when tab is hidden
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stopAutoplay();
-    else startAutoplay();
-  });
-  function startAutoplay() {
-    stopAutoplay();
-    if (!autoplay) return;
-    timer = setInterval(() => next(), 3200);
-  }
-  function stopAutoplay() {
-    if (timer) clearInterval(timer);
-    timer = null;
-  }
-  function restartAutoplay() {
-    if (!autoplay) return;
-    startAutoplay();
-  }
   const projects = [
     {
-      title: "JMS — Journal Management System",
-      role: "Developer • 2025–2026",
-      img: "assets/shots/jms/main.png",
-    },
-    {
-      title: "SCROLL — Thesis Repository",
-      role: "BA & Jr Dev • Nov 2025",
-      img: "assets/shots/scroll/main.png",
-    },
-    {
-      title: "MoneyPulse — Banking & Tracking",
-      role: "BA & Mobile Dev • 2025",
-      img: "assets/shots/moneypulse/main.png",
-    },
-    {
-      title: "ReserveNAs — Reservations & Match-ups",
-      role: "BA & Mobile Dev • 2025",
-      img: "assets/shots/reservenas/main.png",
-    },
-    {
-      title: "CourtConnect — Scheduler Hub",
-      role: "BA & Jr Dev • 2024",
+      year: "2024",
+      title: "CourtConnect",
+      role: "BA & Jr Dev",
+      summary:
+        "A scheduling hub for community basketball courts, built to reduce booking conflicts and keep access fair.",
+      points: [
+        "Centralized court reservations into one clear workflow.",
+        "Reduced overlap and confusion with structured schedule management.",
+      ],
       img: "assets/shots/courtconnect/main.png",
+      shotLabel: "Scheduler Hub",
     },
     {
-      title: "Nasugbu Local Market IS",
-      role: "BA & Jr Dev • 2024",
+      year: "2024",
+      title: "Nasugbu Local Market Information System",
+      role: "BA & Jr Dev",
+      summary:
+        "A market operations platform focused on stall management, pricing visibility, and rental tracking.",
+      points: [
+        "Organized vendor and stall records into a usable monitoring system.",
+        "Tracked rental revenue and dynamic pricing updates for better oversight.",
+      ],
       img: "assets/shots/market/main.png",
+      shotLabel: "Market Operations",
+    },
+    {
+      year: "2025",
+      title: "MoneyPulse",
+      role: "BA & Mobile Dev",
+      summary:
+        "A banking and financial tracking experience that combined secure transactions with clearer money movement.",
+      points: [
+        "Built secure transfer and QR withdrawal flows with React.js.",
+        "Applied ISO/IEC 25010-aligned quality checks for reliability and security.",
+      ],
+      img: "assets/shots/moneypulse/main.png",
+      shotLabel: "Finance Tracking",
+    },
+    {
+      year: "2025",
+      title: "ReserveNAs",
+      role: "BA & Mobile Dev",
+      summary:
+        "A reservation and sports match-up app for handling facilities, availability, and QR-based validation.",
+      points: [
+        "Modernized reservations with cross-platform booking flows.",
+        "Added live availability checks and sports match-up coordination.",
+      ],
+      img: "assets/shots/reservenas/main.png",
+      shotLabel: "Reservation Flow",
+    },
+    {
+      year: "2025",
+      title: "SCROLL: Intelligent Thesis Repository",
+      role: "BA & Jr Dev",
+      summary:
+        "A capstone repository platform designed to centralize academic research and improve thesis access across colleges.",
+      points: [
+        "Built the repository direction around scalable academic search and access.",
+        "Planned multi-tenant workflows for different institutional needs.",
+      ],
+      img: "assets/shots/scroll/main.png",
+      shotLabel: "Thesis Repository",
+    },
+    {
+      year: "2025–2026",
+      title: "Journal Management System (JMS)",
+      role: "Developer",
+      summary:
+        "An AI-driven journal and thesis platform focused on semantic retrieval, research indexing, and academic-scale structure.",
+      points: [
+        "Developing Laravel and Elasticsearch-based semantic search capabilities.",
+        "Leading the data modeling strategy for efficient large-scale indexing.",
+      ],
+      img: "assets/shots/jms/main.png",
+      shotLabel: "Research Platform",
     },
   ];
 
-  function escapeHtml(s) {
-    return String(s).replace(
+  function escapeHtml(value) {
+    return String(value).replace(
       /[&<>"']/g,
-      (m) =>
+      (match) =>
         ({
           "&": "&amp;",
           "<": "&lt;",
           ">": "&gt;",
           '"': "&quot;",
           "'": "&#39;",
-        })[m],
+        })[match],
     );
   }
 
-  function makeFrontOverlay(title, role) {
-    const o = document.createElement("div");
-    o.className = "front-overlay";
-    o.innerHTML = `<p class="front-title">${escapeHtml(title)}</p>
-                   <p class="front-sub">${escapeHtml(role)}</p>`;
-    return o;
-  }
-
-  function makeFrontPlaceholder(title, role) {
-    const p = document.createElement("div");
-    p.style.position = "absolute";
-    p.style.inset = "0";
-    p.style.display = "grid";
-    p.style.placeItems = "center";
-    p.style.padding = "14px";
-    p.style.background = "rgba(2,6,23,.35)";
-    p.innerHTML = `
-      <div style="text-align:center;">
-        <div style="font-weight:950;">${escapeHtml(title)}</div>
-        <div style="margin-top:6px; font-size:12px; color: var(--muted);">${escapeHtml(role)}</div>
+  function createFallback(project) {
+    const fallback = document.createElement("div");
+    fallback.className = "map-shot-fallback";
+    const fromFileProtocol = window.location.protocol === "file:";
+    const note =
+      fromFileProtocol && project.img
+        ? `Preview mode active. Add a local server or place a real image at ${escapeHtml(project.img)}.`
+        : `Add a screenshot at ${escapeHtml(project.img)} to replace this panel.`;
+    fallback.innerHTML = `
+      <div>
+        <div class="map-shot-label">${escapeHtml(project.shotLabel)}</div>
+        <div class="map-shot-title">${escapeHtml(project.title)}</div>
+        <div class="map-shot-note">${note}</div>
       </div>`;
-    p.appendChild(makeFrontOverlay(title, role));
-    return p;
+    return fallback;
   }
 
-  function createCard({ title, role, img }, idx) {
-    const c = document.createElement("article");
-    c.className = "c54";
-    c.dataset.idx = String(idx);
+  function canLoadImage(path) {
+    if (!path) return false;
 
-    const front = document.createElement("div");
-    front.className = "face front";
+    const isEmbedded = /^data:/i.test(path);
+    const isRemote = /^https?:/i.test(path);
+    const isLocalFilePreview =
+      window.location.protocol === "file:" && !isEmbedded && !isRemote;
 
-    if (img) {
+    return !isLocalFilePreview;
+  }
+
+  function createStop(project, index) {
+    const side = index % 2 === 0 ? "left" : "right";
+    const stop = document.createElement("article");
+    stop.className = "map-stop";
+    stop.dataset.side = side;
+
+    const copy = document.createElement("div");
+    copy.className = "map-copy";
+    copy.innerHTML = `
+      <p class="map-year">${escapeHtml(project.year)}</p>
+      <h3 class="map-title">${escapeHtml(project.title)}</h3>
+      <div class="map-role">${escapeHtml(project.role)}</div>
+      <p class="map-summary">${escapeHtml(project.summary)}</p>
+      <ul class="map-points">
+        ${project.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
+      </ul>`;
+
+    const node = document.createElement("div");
+    node.className = "map-node";
+    node.innerHTML = `<span class="map-step">0${index + 1}</span>`;
+
+    const shot = document.createElement("div");
+    shot.className = "map-shot";
+
+    const fallback = createFallback(project);
+    fallback.hidden = canLoadImage(project.img);
+    shot.appendChild(fallback);
+
+    if (canLoadImage(project.img)) {
       const image = document.createElement("img");
-      image.src = img;
-      image.alt = `${title} screenshot`;
+      image.src = project.img;
+      image.alt = `${project.title} screenshot`;
+      image.decoding = "async";
+      image.onload = () => {
+        fallback.hidden = true;
+      };
       image.onerror = () => {
         image.remove();
-        front.appendChild(makeFrontPlaceholder(title, role));
+        fallback.hidden = false;
       };
-      front.appendChild(image);
-      front.appendChild(makeFrontOverlay(title, role));
-    } else {
-      front.appendChild(makeFrontPlaceholder(title, role));
+
+      shot.appendChild(image);
     }
 
-    c.appendChild(front);
-    return c;
+    const caption = document.createElement("div");
+    caption.className = "map-shot-caption";
+    caption.innerHTML = `
+      <div>
+        <strong>${escapeHtml(project.shotLabel)}</strong>
+        <span>${escapeHtml(project.year)} milestone</span>
+      </div>
+      <div class="map-shot-index">0${index + 1}</div>`;
+    shot.appendChild(caption);
+
+    stop.appendChild(copy);
+    stop.appendChild(node);
+    stop.appendChild(shot);
+    return stop;
   }
 
-  // Render cards directly (no 100% slides)
-  rail.innerHTML = "";
-  projects.forEach((p, idx) => rail.appendChild(createCard(p, idx)));
-
-  const cards = () => Array.from(rail.querySelectorAll(".c54"));
-
-  let index = 0;
-
-  function setActive() {
-    const cs = cards();
-    cs.forEach((x) => x.classList.remove("active"));
-    cs[index]?.classList.add("active");
-  }
-
-  function layout() {
-    const cs = cards();
-    if (!cs.length) return;
-
-    const cardW = cs[0].getBoundingClientRect().width;
-    const gap = 22;
-    const step = cardW + gap;
-
-    const vpW = viewport.getBoundingClientRect().width;
-
-    // Center active card: move rail so active card's center = viewport center
-    const activeCenter = index * step + cardW / 2;
-    const viewportCenter = vpW / 2;
-    const offset = viewportCenter - activeCenter;
-
-    rail.style.transform = `translateX(${offset}px)`;
-    setActive();
-  }
-
-  function go(i) {
-    index = (i + projects.length) % projects.length;
-    layout();
-  }
-
-  function prev() {
-    go(index - 1);
-    restartAutoplay();
-  }
-  function next() {
-    go(index + 1);
-    restartAutoplay();
-  }
-
-  btnLeft?.addEventListener("click", prev);
-  btnRight?.addEventListener("click", next);
-
-  window.addEventListener("keydown", (e) => {
-    const tag =
-      (document.activeElement && document.activeElement.tagName) || "";
-    if (tag === "INPUT" || tag === "TEXTAREA") return;
-
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      prev();
-    }
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      next();
-    }
+  map.innerHTML = "";
+  projects.forEach((project, index) => {
+    map.appendChild(createStop(project, index));
   });
 
-  window.addEventListener("resize", layout);
+  const stops = Array.from(map.querySelectorAll(".map-stop"));
 
-  // init
-  go(0);
-  startAutoplay();
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      {
+        threshold: 0.25,
+        rootMargin: "0px 0px -10% 0px",
+      },
+    );
+
+    stops.forEach((stop) => observer.observe(stop));
+  } else {
+    stops.forEach((stop) => stop.classList.add("is-visible"));
+  }
 })();
